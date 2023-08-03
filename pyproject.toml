@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "git-daemon-server"
+version = "0.1.0"
+description = "A simple implementation of the Git Daemon server to allow local collaboration within a private network."
+authors = ["Kylie Blake McNaughton <kylieblake@robocorp.com>"]
+license = "Apache v2.0"
+readme = "README.md"
+packages = [{include = "git_daemon_server"}]
+
+[tool.poetry.dependencies]
+python = ">3.9"
+invoke = "^2.2.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
