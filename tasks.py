@@ -1,4 +1,3 @@
-import yaml
 from typing import Optional
 
 from invoke.tasks import task
@@ -23,3 +22,15 @@ def start_daemon(ctx: Context, receive: Optional[bool] = None):
         f"--base-path={util.safely_load_config(ctx, 'git_daemon.base_path', '.')} "
         f"--export-all {receive_str} ",
     )
+
+
+@task
+def clean(ctx: Context):
+    """Cleans the project."""
+    shell.git(ctx, "clean -fdx")
+
+
+@task
+def install_wsl_env(ctx: Context):
+    """Installs the WSL environment for the project."""
+    shell.wsl(ctx, "python -m poetry install")

@@ -20,6 +20,8 @@ DOCGEN = "docgen"
 PYTHON_EXECUTOR = "python"
 INVOKE = "invoke"
 GIT = "git"
+WSL = "wsl"
+POWERSHELL = "pwsh -c"
 
 SEMANTIC_VERSION_PATTERN = re.compile(
     r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(\-((0|[1-9A-Za-z-]+)((\.(0|[1-9A-Za-z-]+))+)?))?(\+(([0-9A-Za-z-]+)((\.([0-9A-Za-z-]+))+)?))?"  # noqa
@@ -51,6 +53,11 @@ def run(ctx: Context, app: str, command: str, **kwargs):
     return ctx.run(f"{app} {command}", **kwargs)
 
 
+def powershell(ctx, command: str, **kwargs):
+    """Executes a powershell command on the shell"""
+    return run(ctx, POWERSHELL, command, **kwargs)
+
+
 def poetry(ctx: Context, command: str, **kwargs):
     """Executes poetry commands on the shell."""
     return run(ctx, POETRY, f"{command}", **kwargs)
@@ -76,6 +83,11 @@ def git(ctx: Context, command: str, **kwargs):
 def invoke(ctx: Context, command: str, **kwargs):
     """Executes an invoke command within the current context."""
     return run(ctx, INVOKE, command, **kwargs)
+
+
+def wsl(ctx: Context, command: str, **kwargs):
+    """Executes a command within the WSL environment."""
+    return run(ctx, WSL, command, **kwargs)
 
 
 def require_git_branch(ctx: Context, expected_branch: Optional[str] = None) -> None:
